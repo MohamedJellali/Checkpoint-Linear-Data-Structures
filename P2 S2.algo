@@ -1,0 +1,59 @@
+ALGORITHM P2_Sol2
+VAR
+    htab : HASH_TABLE<INTEGER,INTEGER>;
+    tab1,tab2,tab3 : ARRAY_OF INTEGER [50];
+
+    l1,l2: INTEGER;
+    i,sum : INTEGER := 0;
+
+
+BEGIN
+REPEAT
+    write("enter the length of tab1");
+    read(l1);
+UNTIL (l1>=1)
+
+FOR i FROM 1 TO l1 STEP 1  DO
+    write("enter tab1[",i,"]");
+    read(tab1[i]);
+END_FOR
+
+REPEAT
+    write("enter the length of tab1");
+    read(l2);
+UNTIL (l2>=1)
+
+FOR i FROM 1 TO l2 STEP 1  DO
+    write("enter tab2[",i,"]");
+    read(tab2[i]);
+END_FOR
+
+
+FOR i FROM 0 TO (l1 + l2 - 1) STEP 1  DO
+    IF (i<l1) THEN
+        tab3[i]=tab1[i];
+        htab.insert(tab3[i],i);
+    ELSE
+        tab3[i]=tab2[i-l1];
+        htab.insert(tab3[i],i);
+    END_IF
+END_FOR
+
+
+FOR i FROM 0 TO tab3.length-1 STEP 1  DO
+IF (htab.lookup(tab3[i])) THEN
+    htab.insert(tab3[i],2);
+ELSE
+    htab.insert(tab3[i],1);
+END_IF
+
+FOR i FROM 0 TO tab3.length-1 STEP 1  DO
+    IF (htab.get(tab3[i])=2) THEN
+        sum:=sum+tab3[i]*2;
+    END_IF
+END_FOR
+
+
+write(sum);
+
+END
